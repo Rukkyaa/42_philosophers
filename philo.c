@@ -1,32 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: axlamber <axlamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/17 17:04:31 by axlamber          #+#    #+#             */
-/*   Updated: 2023/01/18 17:12:12 by axlamber         ###   ########.fr       */
+/*   Created: 2023/01/18 17:00:30 by axlamber          #+#    #+#             */
+/*   Updated: 2023/01/18 17:17:57 by axlamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/philo.h"
 
-void	free_all(t_data *data)
+void	*routine(void *philo)
 {
-	free(data->philos);
-}
+	t_philo	*socrate;
 
-int main(int argc, char **argv)
-{
-	t_data	data;
-	
-	if (parsing(argc, argv, &data))
-		return (EXIT_FAILURE);
-	// get_info(&data);
-	// printf("Timestamp : %lld\n", current_time());
-	// ft_usleep(5 * 1000);
-	// printf("Timestamp : %lld\n", current_time());
-	free_all(&data);
-	return (EXIT_SUCCESS);
+	socrate = (t_philo *)philo;
+	if (!(socrate->id % 2))
+		ft_usleep(socrate->data->time_to_eat / 2);
+	printf("Bonjour, je suis le philo numero %d !\n", socrate->id);
+	return (NULL);
 }
