@@ -6,7 +6,7 @@
 /*   By: rukkyaa <rukkyaa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 17:45:14 by axlamber          #+#    #+#             */
-/*   Updated: 2023/01/19 10:42:40 by rukkyaa          ###   ########.fr       */
+/*   Updated: 2023/01/20 00:28:27 by rukkyaa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,6 @@ void	ft_usleep(int ms);
 long long	current_time(void);
 void	*routine(void *philo);
 void	print_msg(t_philo *philo, char *str);
+void	check_death(t_data *data);
 
 #endif

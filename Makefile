@@ -6,7 +6,7 @@
 #    By: rukkyaa <rukkyaa@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/17 17:38:06 by axlamber          #+#    #+#              #
-#    Updated: 2023/01/19 00:18:38 by rukkyaa          ###   ########.fr        #
+#    Updated: 2023/01/20 00:54:42 by rukkyaa          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ clean:
 fclean:	clean
 			@printf "\033[K\033[1;31m|\033[1;31m Destroying all                       \033[1;31m|\n\033[m"
 			@make --no-print-directory fclean -C libft/
-			@$(RM) .build
+			@$(RM) .build $(NAME)
 			@printf "\033[1;31m========================================\n\033[m"
 
 re:		fclean all

@@ -6,7 +6,7 @@
 /*   By: rukkyaa <rukkyaa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 13:28:54 by axlamber          #+#    #+#             */
-/*   Updated: 2023/01/19 10:38:14 by rukkyaa          ###   ########.fr       */
+/*   Updated: 2023/01/20 00:30:17 by rukkyaa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ bool	init_philos(t_data *data)
 	while ((unsigned int)++i < data->nb_philo)
 	{
 		data->philos[i].id = i + 1;
-		data->philos[i].last_eat = 0;
+		data->philos[i].last_eat = current_time();
 		data->philos[i].data = data;
 		data->philos[i].l_fork = i;
 		if ((unsigned int)i == data->nb_philo - 1)
@@ -82,6 +82,7 @@ bool	init_philos(t_data *data)
 			&routine, &(data->philos[i])))
 			return (true);
 	}
+	check_death(data);
 	i = -1;
 	while ((unsigned int)++i < data->nb_philo)
 		if (pthread_join(data->philos[i].thread, NULL))

@@ -6,7 +6,7 @@
 /*   By: rukkyaa <rukkyaa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 16:33:13 by axlamber          #+#    #+#             */
-/*   Updated: 2023/01/19 10:46:27 by rukkyaa          ###   ########.fr       */
+/*   Updated: 2023/01/20 00:44:01 by rukkyaa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	print_msg(t_philo *philo, char *str)
 	long long	time;
 
 	time = current_time() - philo->data->start_time;
+	if (philo->data->is_dead)
+		return ;
 	if (!ft_strncmp(str, "fork", 4))
 		printf("%lld %d has taken a fork\n", time, philo->id);
 	if (!ft_strncmp(str, "eat", 3))
@@ -25,6 +27,8 @@ void	print_msg(t_philo *philo, char *str)
 		printf("%lld %d is sleeping\n", time, philo->id);
 	if (!ft_strncmp(str, "think", 5))
 		printf("%lld %d is thinking\n", time, philo->id);
+	if (!ft_strncmp(str, "dead", 4))
+		printf("%lld %d died\n", time, philo->id);
 }
 long long	current_time(void)
 {
