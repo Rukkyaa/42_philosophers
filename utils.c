@@ -6,7 +6,7 @@
 /*   By: axlamber <axlamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 16:33:13 by axlamber          #+#    #+#             */
-/*   Updated: 2023/01/21 17:15:28 by axlamber         ###   ########.fr       */
+/*   Updated: 2023/01/21 17:21:49 by axlamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,5 @@ void	ft_usleep(int ms, t_data *data)
 
 	time = current_time();
 	while (current_time() - time < ms && !is_dead(data))
-		usleep(ms / 10);
+		usleep(10);
 }

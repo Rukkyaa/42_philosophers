@@ -6,7 +6,7 @@
 /*   By: axlamber <axlamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 17:00:30 by axlamber          #+#    #+#             */
-/*   Updated: 2023/01/21 16:07:35 by axlamber         ###   ########.fr       */
+/*   Updated: 2023/01/21 18:04:21 by axlamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,13 @@ void	check_death(t_data *data)
 				pthread_mutex_lock(&data->death);
 				data->is_dead = 1;
 				pthread_mutex_unlock(&data->death);
+				pthread_mutex_lock(&data->print);
 				printf("%lld %d died\n", current_time()
 					- data->start_time, data->philos[i].id);
+				pthread_mutex_unlock(&data->print);
 				break ;
 			}
-			ft_usleep(1, data);
+			ft_usleep(100, data);
 		}
 	}
 }
