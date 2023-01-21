@@ -6,7 +6,7 @@
 #    By: rukkyaa <rukkyaa@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/17 17:38:06 by axlamber          #+#    #+#              #
-#    Updated: 2023/01/20 00:54:42 by rukkyaa          ###   ########.fr        #
+#    Updated: 2023/01/21 11:59:52 by axlamber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ OBJS	= $(SRCS:%.c=.build/%.o)
 NAME	= philosophers
 CC		= cc
 RM		= rm -rf
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror -g
 HEADERS = -I includes/ -I libft/includes/
 LIBFT = -L libft/ -lft
 

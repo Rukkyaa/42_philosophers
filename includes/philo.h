@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rukkyaa <rukkyaa@student.42.fr>            +#+  +:+       +#+        */
+/*   By: axlamber <axlamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 17:45:14 by axlamber          #+#    #+#             */
-/*   Updated: 2023/01/20 00:28:27 by rukkyaa          ###   ########.fr       */
+/*   Updated: 2023/01/21 15:37:49 by axlamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ typedef struct s_data
 	bool			is_dead;
 	long long		start_time;
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	death;
+	pthread_mutex_t	print;
 	struct s_philo	*philos;
 }				t_data;
 
@@ -45,12 +47,13 @@ typedef struct s_philo
 	struct s_data	*data;
 }				t_philo;
 
-bool	parsing(int argc, char **argv, t_data *data);
-void	get_info(t_data *data);
-void	ft_usleep(int ms);
+bool		parsing(int argc, char **argv, t_data *data);
+void		get_info(t_data *data);
+void		ft_usleep(int ms, t_data *data);
 long long	current_time(void);
-void	*routine(void *philo);
-void	print_msg(t_philo *philo, char *str);
-void	check_death(t_data *data);
+void		*routine(void *philo);
+void		print_msg(t_philo *philo, char *str);
+void		check_death(t_data *data);
+bool		is_dead(t_data *data);
 
 #endif
