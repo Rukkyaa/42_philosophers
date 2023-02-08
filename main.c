@@ -6,7 +6,7 @@
 /*   By: axlamber <axlamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 17:04:31 by axlamber          #+#    #+#             */
-/*   Updated: 2023/01/21 15:40:39 by axlamber         ###   ########.fr       */
+/*   Updated: 2023/02/08 11:13:45 by axlamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,13 @@ void	free_all(t_data *data)
 
 	i = -1;
 	while ((unsigned int)++i < data->nb_philo)
-	{
 		pthread_join(data->philos[i].thread, NULL);
+	i = -1;
+	while ((unsigned int)++i < data->nb_philo)
 		pthread_mutex_destroy(&data->forks[i]);
-	}
 	pthread_mutex_destroy(&data->print);
 	pthread_mutex_destroy(&data->death);
+	pthread_mutex_destroy(&data->meal);
 	free(data->philos);
 	free(data->forks);
 }

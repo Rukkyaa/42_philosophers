@@ -6,26 +6,52 @@
 /*   By: axlamber <axlamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 17:00:30 by axlamber          #+#    #+#             */
-/*   Updated: 2023/01/21 18:04:21 by axlamber         ###   ########.fr       */
+/*   Updated: 2023/02/08 13:43:48 by axlamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/philo.h"
 
+void	take_fork(t_philo *boulesteix, bool flag)
+{
+	if (!(boulesteix->id % 2) && flag)
+	{
+		pthread_mutex_lock(&boulesteix->data->forks[boulesteix->l_fork]);
+		print_msg(boulesteix, "fork");
+		pthread_mutex_lock(&boulesteix->data->forks[boulesteix->r_fork]);
+		print_msg(boulesteix, "fork");
+	}
+	else if (boulesteix->id % 2 && flag)
+	{
+		pthread_mutex_lock(&boulesteix->data->forks[boulesteix->r_fork]);
+		print_msg(boulesteix, "fork");
+		pthread_mutex_lock(&boulesteix->data->forks[boulesteix->l_fork]);
+		print_msg(boulesteix, "fork");
+	}
+	if (!(boulesteix->id % 2) && !flag)
+	{
+		pthread_mutex_unlock(&boulesteix->data->forks[boulesteix->r_fork]);
+		pthread_mutex_unlock(&boulesteix->data->forks[boulesteix->l_fork]);
+	}
+	else if (boulesteix->id % 2 && !flag)
+	{
+		pthread_mutex_unlock(&boulesteix->data->forks[boulesteix->l_fork]);
+		pthread_mutex_unlock(&boulesteix->data->forks[boulesteix->r_fork]);
+	}
+}
+
 void	eat(t_philo *voltaire)
 {
-	pthread_mutex_lock(&voltaire->data->forks[voltaire->l_fork]);
-	print_msg(voltaire, "fork");
-	pthread_mutex_lock(&voltaire->data->forks[voltaire->r_fork]);
-	print_msg(voltaire, "fork");
+	take_fork(voltaire, true);
 	print_msg(voltaire, "eat");
 	pthread_mutex_lock(&voltaire->data->death);
 	voltaire->last_eat = current_time();
+	pthread_mutex_lock(&voltaire->data->meal);
 	voltaire->total_meal++;
+	pthread_mutex_unlock(&voltaire->data->meal);
 	pthread_mutex_unlock(&voltaire->data->death);
 	ft_usleep(voltaire->data->time_to_eat, voltaire->data);
-	pthread_mutex_unlock(&voltaire->data->forks[voltaire->r_fork]);
-	pthread_mutex_unlock(&voltaire->data->forks[voltaire->l_fork]);
+	take_fork(voltaire, false);
 }
 
 void	*routine(void *philo)
@@ -35,7 +61,7 @@ void	*routine(void *philo)
 	socrate = (t_philo *)philo;
 	if (!(socrate->id % 2))
 		ft_usleep(socrate->data->time_to_eat / 2, socrate->data);
-	while (!is_dead(socrate->data))
+	while (!is_dead(socrate->data) && !get_full_ate(socrate->data))
 	{
 		eat(socrate);
 		print_msg(socrate, "sleep");
@@ -86,7 +112,11 @@ void	check_death(t_data *data)
 				pthread_mutex_unlock(&data->print);
 				break ;
 			}
-			ft_usleep(100, data);
+			if (get_full_ate(data))
+				break ;
+			ft_usleep(1, data);
 		}
+		if (get_full_ate(data))
+			break ;
 	}
 }

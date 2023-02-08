@@ -6,7 +6,7 @@
 /*   By: axlamber <axlamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 13:28:54 by axlamber          #+#    #+#             */
-/*   Updated: 2023/01/21 15:40:18 by axlamber         ###   ########.fr       */
+/*   Updated: 2023/02/08 11:13:15 by axlamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ bool	init_data(int argc, char **argv, t_data *data)
 		pthread_mutex_init(&data->forks[i], NULL);
 	pthread_mutex_init(&data->print, NULL);
 	pthread_mutex_init(&data->death, NULL);
+	pthread_mutex_init(&data->meal, NULL);
 	return (false);
 }
 
@@ -70,6 +71,9 @@ bool	init_philos(t_data *data)
 	data->philos = (t_philo *)malloc(data->nb_philo * sizeof(t_philo));
 	if (!data->philos)
 		return (true);
+	i = -1;
+	while ((unsigned int)++i < data->nb_philo)
+		data->philos[i].total_meal = 0;
 	i = -1;
 	while ((unsigned int)++i < data->nb_philo)
 	{

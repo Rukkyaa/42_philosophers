@@ -6,7 +6,7 @@
 /*   By: axlamber <axlamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 17:45:14 by axlamber          #+#    #+#             */
-/*   Updated: 2023/01/21 15:37:49 by axlamber         ###   ########.fr       */
+/*   Updated: 2023/02/08 11:13:27 by axlamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_data
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	death;
 	pthread_mutex_t	print;
+	pthread_mutex_t	meal;
 	struct s_philo	*philos;
 }				t_data;
 
@@ -55,5 +56,6 @@ void		*routine(void *philo);
 void		print_msg(t_philo *philo, char *str);
 void		check_death(t_data *data);
 bool		is_dead(t_data *data);
+bool		get_full_ate(t_data *data);
 
 #endif
