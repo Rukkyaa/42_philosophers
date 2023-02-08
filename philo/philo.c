@@ -6,7 +6,7 @@
 /*   By: axlamber <axlamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 17:00:30 by axlamber          #+#    #+#             */
-/*   Updated: 2023/02/08 13:43:48 by axlamber         ###   ########.fr       */
+/*   Updated: 2023/02/08 17:47:58 by axlamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	check_death(t_data *data)
 			}
 			if (get_full_ate(data))
 				break ;
-			ft_usleep(1, data);
+			ft_usleep(1000, data);
 		}
 		if (get_full_ate(data))
 			break ;
