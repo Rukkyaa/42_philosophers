@@ -6,7 +6,7 @@
 /*   By: axlamber <axlamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 16:33:13 by axlamber          #+#    #+#             */
-/*   Updated: 2023/02/08 11:28:17 by axlamber         ###   ########.fr       */
+/*   Updated: 2023/02/10 14:51:33 by axlamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	ft_usleep(int ms, t_data *data)
 
 	time = current_time();
 	while (current_time() - time < ms && !is_dead(data) && !get_full_ate(data))
-		usleep(10);
+		usleep(1000);
 }
 
 bool	get_full_ate(t_data *data)

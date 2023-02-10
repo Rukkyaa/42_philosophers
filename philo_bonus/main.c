@@ -6,7 +6,7 @@
 /*   By: axlamber <axlamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:50:44 by axlamber          #+#    #+#             */
-/*   Updated: 2023/02/09 18:20:34 by axlamber         ###   ########.fr       */
+/*   Updated: 2023/02/10 13:03:48 by axlamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 void	free_all(t_data *data)
 {
 	free(data->philos);
+	sem_close(data->forks);
+	sem_close(data->print);
+	sem_close(data->death);
 }
 
 int	main(int argc, char **argv)

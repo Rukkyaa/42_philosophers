@@ -6,7 +6,7 @@
 /*   By: axlamber <axlamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:04:21 by axlamber          #+#    #+#             */
-/*   Updated: 2023/02/09 18:17:49 by axlamber         ###   ########.fr       */
+/*   Updated: 2023/02/10 14:28:50 by axlamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,7 @@ void	eat(t_philo *platon)
 	print_msg(platon, "eat");
 	sem_wait(platon->data->death);
 	platon->last_eat = current_time();
-	// pthread_mutex_lock(&platon->data->meal);
 	platon->total_meal++;
-	// pthread_mutex_unlock(&platon->data->meal);
 	sem_post(platon->data->death);
 	ft_usleep(platon->data->time_to_eat);
 	take_fork(platon, false);
@@ -44,21 +42,22 @@ void	eat(t_philo *platon)
 
 void	routine_philo(t_philo *notch)
 {
-	int	i;
-
 	print_msg(notch, "eat");
 	print_msg(notch, "sleep");
 	print_msg(notch, "think");
 	if (!(notch->id % 2))
 		ft_usleep(notch->data->time_to_eat / 2);
-	i = -1;
 	while (1)
 	{
 		eat(notch);
 		if (notch->total_meal == notch->data->nb_of_meal)
-			return ;
+			break ;
 		print_msg(notch, "sleep");
 		ft_usleep(notch->data->time_to_sleep);
 		print_msg(notch, "think");
 	}
+	sem_close(notch->data->forks);
+	sem_close(notch->data->print);
+	sem_close(notch->data->death);
+	free(notch->data->philos);
 }
