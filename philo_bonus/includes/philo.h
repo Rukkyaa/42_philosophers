@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axlamber <axlamber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rukkyaa <rukkyaa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 17:45:14 by axlamber          #+#    #+#             */
-/*   Updated: 2023/02/09 16:52:15 by axlamber         ###   ########.fr       */
+/*   Updated: 2023/02/11 15:50:24 by rukkyaa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,9 @@ typedef struct	s_data
 	long long		start_time;
 	sem_t			*forks;
 	sem_t			*print;
+	sem_t			*meal;
 	sem_t			*death;
+	sem_t			*check;
 	struct s_philo	*philos;
 }				t_data;
 
@@ -46,6 +48,8 @@ typedef struct s_philo
 	int				id;
 	int				total_meal;
 	long long		last_eat;
+	pthread_t		meal_thread;
+	pthread_t		death_thread;
 	struct s_data	*data;
 }				t_philo;
 
@@ -55,5 +59,6 @@ void		ft_usleep(int ms);
 bool		init_philos(t_data *data);
 void		routine_philo(t_philo *notch);
 void		print_msg(t_philo *philo, char *str);
+bool		is_dead(t_data *data);
 
 #endif

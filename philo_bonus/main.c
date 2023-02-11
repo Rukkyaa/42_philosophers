@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axlamber <axlamber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rukkyaa <rukkyaa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:50:44 by axlamber          #+#    #+#             */
-/*   Updated: 2023/02/10 13:03:48 by axlamber         ###   ########.fr       */
+/*   Updated: 2023/02/11 15:51:22 by rukkyaa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ void	free_all(t_data *data)
 	free(data->philos);
 	sem_close(data->forks);
 	sem_close(data->print);
+	sem_close(data->meal);
 	sem_close(data->death);
+	sem_close(data->check);
 }
 
 int	main(int argc, char **argv)

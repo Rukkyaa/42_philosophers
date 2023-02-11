@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axlamber <axlamber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rukkyaa <rukkyaa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 23:25:49 by rukkyaa           #+#    #+#             */
-/*   Updated: 2023/02/10 12:35:04 by axlamber         ###   ########.fr       */
+/*   Updated: 2023/02/11 15:51:34 by rukkyaa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ bool	init_data(int argc, char **argv, t_data *data)
 {
 	sem_unlink("/fork");
 	sem_unlink("/print");
+	sem_unlink("/meal");
 	sem_unlink("/death");
+	sem_unlink("/check");
 	data->is_dead = false;
 	data->nb_philo = ft_atoi(argv[1]);
 	data->time_to_die = ft_atoi(argv[2]);
@@ -38,7 +40,9 @@ bool	init_data(int argc, char **argv, t_data *data)
 		data->nb_of_meal = -1;
 	data->forks = sem_open("/fork", O_CREAT | O_EXCL, S_IRWXU, data->nb_philo);
 	data->print = sem_open("/print", O_CREAT | O_EXCL, S_IRWXU, 1);
-	data->death = sem_open("/death", O_CREAT | O_EXCL, S_IRWXU, 1);
+	data->meal = sem_open("/meal", O_CREAT | O_EXCL, S_IRWXU, 1);
+	data->death = sem_open("/death", O_CREAT | O_EXCL, S_IRWXU, 0);
+	data->check = sem_open("/check", O_CREAT | O_EXCL, S_IRWXU, 1);
 	return (false);
 }
 

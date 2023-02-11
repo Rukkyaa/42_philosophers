@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axlamber <axlamber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rukkyaa <rukkyaa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 23:32:57 by rukkyaa           #+#    #+#             */
-/*   Updated: 2023/02/09 17:02:45 by axlamber         ###   ########.fr       */
+/*   Updated: 2023/02/11 15:50:50 by rukkyaa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,18 @@ void	print_msg(t_philo *philo, char *str)
 
 	sem_wait(philo->data->print);
 	time = current_time() - philo->data->start_time;
-	if (!ft_strncmp(str, "fork", 4))
+	if (!ft_strncmp(str, "fork", 4) && !is_dead(philo->data))
 		printf("%lld %d has taken a fork\n", time, philo->id);
-	if (!ft_strncmp(str, "eat", 3))
+	if (!ft_strncmp(str, "eat", 3) && !is_dead(philo->data))
 		printf("%lld %d is eating\n", time, philo->id);
-	if (!ft_strncmp(str, "sleep", 5))
+	if (!ft_strncmp(str, "sleep", 5) && !is_dead(philo->data))
 		printf("%lld %d is sleeping\n", time, philo->id);
-	if (!ft_strncmp(str, "think", 5))
+	if (!ft_strncmp(str, "think", 5) && !is_dead(philo->data))
 		printf("%lld %d is thinking\n", time, philo->id);
-	if (!ft_strncmp(str, "dead", 4))
+	if (!ft_strncmp(str, "dead", 4) && !is_dead(philo->data))
 		printf("%lld %d died\n", time, philo->id);
+	if (!ft_strncmp(str, "dead", 4))
+		printf("Finito\n");
 	sem_post(philo->data->print);
 }
 
@@ -46,4 +48,14 @@ void	ft_usleep(int ms)
 	time = current_time();
 	while (current_time() - time < ms)
 		usleep(10);
+}
+
+bool	is_dead(t_data *data)
+{
+	bool	ret;
+
+	sem_wait(data->check);
+	ret = data->is_dead;
+	sem_post(data->check);
+	return (ret);
 }
