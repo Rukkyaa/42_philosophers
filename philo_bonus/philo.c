@@ -6,7 +6,7 @@
 /*   By: rukkyaa <rukkyaa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:04:21 by axlamber          #+#    #+#             */
-/*   Updated: 2023/02/11 15:56:52 by rukkyaa          ###   ########.fr       */
+/*   Updated: 2023/02/11 16:12:33 by rukkyaa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	eat(t_philo *platon)
 	platon->last_eat = current_time();
 	platon->total_meal++;
 	sem_post(platon->data->meal);
-	ft_usleep(platon->data->time_to_eat);
+	ft_usleep(platon->data->time_to_eat, platon->data);
 	take_fork(platon, false);
 }
 
@@ -63,8 +63,7 @@ void	*meal_check(void *philo)
 		sem_wait(socrate->data->meal);
 		if (current_time() - socrate->last_eat >= socrate->data->time_to_die)
 		{
-			if (!is_dead(socrate->data))
-				printf("%lld %d died\n", current_time() - socrate->data->start_time, socrate->id);
+			print_msg(socrate, "dead");
 			sem_wait(socrate->data->check);
 			socrate->data->is_dead = true;
 			sem_post(socrate->data->check);
@@ -73,36 +72,36 @@ void	*meal_check(void *philo)
 			break ;
 		}
 		sem_post(socrate->data->meal);
-		if (socrate->data->is_dead)
+		if (is_dead(socrate->data))
 			break ;
-		usleep(10);
-		sem_wait(socrate->data->check);
+		sem_wait(socrate->data->meal);
+		usleep(1);
 		if (socrate->total_meal >= socrate->data->nb_of_meal && socrate->data->nb_of_meal != -1)
 		{
-			sem_post(socrate->data->check);
+			sem_post(socrate->data->meal);
 			break ;
 		}
-		sem_post(socrate->data->check);
+		sem_post(socrate->data->meal);
 	}
 	return (NULL);
 }
 
 void	routine_philo(t_philo *notch)
 {
-	print_msg(notch, "eat");
-	print_msg(notch, "sleep");
+	// print_msg(notch, "eat");
+	// print_msg(notch, "sleep");
 	print_msg(notch, "think");
 	pthread_create(&notch->meal_thread, NULL, &meal_check, notch);
 	pthread_create(&notch->death_thread, NULL, &death_check, notch);
 	if (!(notch->id % 2))
-		ft_usleep(notch->data->time_to_eat / 2);
+		ft_usleep(notch->data->time_to_eat / 2, notch->data);
 	while (!is_dead(notch->data))
 	{
 		eat(notch);
 		if (notch->total_meal == notch->data->nb_of_meal)
 			break ;
 		print_msg(notch, "sleep");
-		ft_usleep(notch->data->time_to_sleep);
+		ft_usleep(notch->data->time_to_sleep, notch->data);
 		print_msg(notch, "think");
 	}
 	pthread_join(notch->death_thread, NULL);

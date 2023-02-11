@@ -6,7 +6,7 @@
 /*   By: rukkyaa <rukkyaa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 23:32:57 by rukkyaa           #+#    #+#             */
-/*   Updated: 2023/02/11 15:50:50 by rukkyaa          ###   ########.fr       */
+/*   Updated: 2023/02/11 16:10:22 by rukkyaa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ void	print_msg(t_philo *philo, char *str)
 		printf("%lld %d is thinking\n", time, philo->id);
 	if (!ft_strncmp(str, "dead", 4) && !is_dead(philo->data))
 		printf("%lld %d died\n", time, philo->id);
-	if (!ft_strncmp(str, "dead", 4))
-		printf("Finito\n");
 	sem_post(philo->data->print);
 }
 
@@ -41,12 +39,12 @@ long long	current_time(void)
 	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
 
-void	ft_usleep(int ms)
+void	ft_usleep(int ms, t_data *data)
 {
 	long long	time;
 
 	time = current_time();
-	while (current_time() - time < ms)
+	while (current_time() - time < ms && !is_dead(data))
 		usleep(10);
 }
 

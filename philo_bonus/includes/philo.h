@@ -6,7 +6,7 @@
 /*   By: rukkyaa <rukkyaa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 17:45:14 by axlamber          #+#    #+#             */
-/*   Updated: 2023/02/11 15:50:24 by rukkyaa          ###   ########.fr       */
+/*   Updated: 2023/02/11 16:08:59 by rukkyaa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct s_philo
 
 bool		parsing(int argc, char **argv, t_data *data);
 long long	current_time(void);
-void		ft_usleep(int ms);
+void		ft_usleep(int ms, t_data *data);
 bool		init_philos(t_data *data);
 void		routine_philo(t_philo *notch);
 void		print_msg(t_philo *philo, char *str);
