@@ -6,7 +6,7 @@
 /*   By: rukkyaa <rukkyaa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 23:32:57 by rukkyaa           #+#    #+#             */
-/*   Updated: 2023/02/11 16:10:22 by rukkyaa          ###   ########.fr       */
+/*   Updated: 2023/02/12 12:57:57 by rukkyaa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	print_msg(t_philo *philo, char *str)
 {
 	long long	time;
 
+	if (is_dead(philo->data))
+		return ;
 	sem_wait(philo->data->print);
 	time = current_time() - philo->data->start_time;
 	if (!ft_strncmp(str, "fork", 4) && !is_dead(philo->data))
@@ -27,7 +29,10 @@ void	print_msg(t_philo *philo, char *str)
 	if (!ft_strncmp(str, "think", 5) && !is_dead(philo->data))
 		printf("%lld %d is thinking\n", time, philo->id);
 	if (!ft_strncmp(str, "dead", 4) && !is_dead(philo->data))
+	{
+		sem_post(philo->data->death);
 		printf("%lld %d died\n", time, philo->id);
+	}
 	sem_post(philo->data->print);
 }
 
