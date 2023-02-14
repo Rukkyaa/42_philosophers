@@ -6,7 +6,7 @@
 /*   By: rukkyaa <rukkyaa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:04:21 by axlamber          #+#    #+#             */
-/*   Updated: 2023/02/12 13:10:21 by rukkyaa          ###   ########.fr       */
+/*   Updated: 2023/02/14 15:47:11 by rukkyaa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	*death_check(void *philo)
 void	*meal_check(void *philo)
 {
 	t_philo	*socrate;
-	
+
 	socrate = (t_philo *)philo;
 	while (1)
 	{
@@ -65,12 +65,16 @@ void	*meal_check(void *philo)
 		sem_wait(socrate->data->meal);
 		if (current_time() - socrate->last_eat >= socrate->data->time_to_die)
 		{
-			print_msg(socrate, "dead");
+			sem_wait(socrate->data->print);
+			if (!is_dead(socrate->data))
+				printf("%lld %d died\n", current_time() - socrate->data->start_time, socrate->id);
 			sem_post(socrate->data->death);
 			sem_wait(socrate->data->check);
 			socrate->data->is_dead = true;
 			sem_post(socrate->data->check);
 			sem_post(socrate->data->meal);
+			usleep(10000);
+			sem_post(socrate->data->print);
 			break ;
 		}
 		if (socrate->total_meal >= socrate->data->nb_of_meal && socrate->data->nb_of_meal != -1)
@@ -80,13 +84,14 @@ void	*meal_check(void *philo)
 			break ;
 		}
 		sem_post(socrate->data->meal);
-		usleep(100);
+		usleep(1000);
 	}
 	return (NULL);
 }
 
 void	routine_philo(t_philo *notch)
 {
+	print_msg(notch, "think");
 	pthread_create(&notch->meal_thread, NULL, &meal_check, notch);
 	pthread_create(&notch->death_thread, NULL, &death_check, notch);
 	if (!(notch->id % 2))

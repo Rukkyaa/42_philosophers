@@ -6,7 +6,7 @@
 /*   By: rukkyaa <rukkyaa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 17:45:14 by axlamber          #+#    #+#             */
-/*   Updated: 2023/02/11 16:08:59 by rukkyaa          ###   ########.fr       */
+/*   Updated: 2023/02/14 15:45:17 by rukkyaa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include <signal.h>
 # include <sys/wait.h>
 
-typedef struct	s_data
+typedef struct s_data
 {
 	int				nb_philo;
 	int				time_to_die;

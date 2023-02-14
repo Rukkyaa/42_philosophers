@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axlamber <axlamber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rukkyaa <rukkyaa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 16:33:13 by axlamber          #+#    #+#             */
-/*   Updated: 2023/02/10 14:51:33 by axlamber         ###   ########.fr       */
+/*   Updated: 2023/02/14 15:49:23 by rukkyaa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,20 @@ void	print_msg(t_philo *philo, char *str)
 		return ;
 	pthread_mutex_lock(&philo->data->print);
 	time = current_time() - philo->data->start_time;
-	if (!ft_strncmp(str, "fork", 4) && !is_dead(philo->data) && !get_full_ate(philo->data))
+	if (!ft_strncmp(str, "fork", 4) && !is_dead(philo->data)
+		&& !get_full_ate(philo->data))
 		printf("%lld %d has taken a fork\n", time, philo->id);
-	if (!ft_strncmp(str, "eat", 3) && !is_dead(philo->data) && !get_full_ate(philo->data))
+	if (!ft_strncmp(str, "eat", 3) && !is_dead(philo->data)
+		&& !get_full_ate(philo->data))
 		printf("%lld %d is eating\n", time, philo->id);
-	if (!ft_strncmp(str, "sleep", 5) && !is_dead(philo->data) && !get_full_ate(philo->data))
+	if (!ft_strncmp(str, "sleep", 5) && !is_dead(philo->data)
+		&& !get_full_ate(philo->data))
 		printf("%lld %d is sleeping\n", time, philo->id);
-	if (!ft_strncmp(str, "think", 5) && !is_dead(philo->data) && !get_full_ate(philo->data))
+	if (!ft_strncmp(str, "think", 5) && !is_dead(philo->data)
+		&& !get_full_ate(philo->data))
 		printf("%lld %d is thinking\n", time, philo->id);
-	if (!ft_strncmp(str, "dead", 4) && !is_dead(philo->data) && !get_full_ate(philo->data))
+	if (!ft_strncmp(str, "dead", 4) && !is_dead(philo->data)
+		&& !get_full_ate(philo->data))
 		printf("%lld %d died\n", time, philo->id);
 	pthread_mutex_unlock(&philo->data->print);
 }
@@ -68,7 +73,7 @@ bool	get_full_ate(t_data *data)
 {
 	int				i;
 	unsigned int	count;
-	
+
 	i = -1;
 	count = 0;
 	if (data->nb_of_meal == -1)

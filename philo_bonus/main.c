@@ -6,7 +6,7 @@
 /*   By: rukkyaa <rukkyaa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:50:44 by axlamber          #+#    #+#             */
-/*   Updated: 2023/02/11 15:51:22 by rukkyaa          ###   ########.fr       */
+/*   Updated: 2023/02/14 15:48:28 by rukkyaa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	main(int argc, char **argv)
 	t_data	data;
 	int		pids[2000];
 	int		i;
-	int 	status;
+	int		status;
 
 	if (parsing(argc, argv, &data))
 		return (EXIT_FAILURE);
@@ -43,10 +43,7 @@ int	main(int argc, char **argv)
 	}
 	i = -1;
 	while (++i < data.nb_philo)
-	{
 		waitpid(-1, &status, 0);
-		// printf("finis !!\n");
-	}
 	free_all(&data);
 	return (EXIT_SUCCESS);
 }
