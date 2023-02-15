@@ -6,7 +6,7 @@
 /*   By: axlamber <axlamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 17:45:14 by axlamber          #+#    #+#             */
-/*   Updated: 2023/02/08 11:13:27 by axlamber         ###   ########.fr       */
+/*   Updated: 2023/02/15 12:51:23 by axlamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,8 @@ void		print_msg(t_philo *philo, char *str);
 void		check_death(t_data *data);
 bool		is_dead(t_data *data);
 bool		get_full_ate(t_data *data);
+void		ft_death(t_data *data, int i);
+void		eat(t_philo *voltaire);
+void		take_fork(t_philo *boulesteix, bool flag);
 
 #endif

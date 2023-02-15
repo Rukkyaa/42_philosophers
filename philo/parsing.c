@@ -6,11 +6,22 @@
 /*   By: axlamber <axlamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 13:28:54 by axlamber          #+#    #+#             */
-/*   Updated: 2023/02/09 14:23:54 by axlamber         ###   ########.fr       */
+/*   Updated: 2023/02/15 12:51:34 by axlamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/philo.h"
+
+void	ft_death(t_data *data, int i)
+{
+	pthread_mutex_lock(&data->death);
+	data->is_dead = 1;
+	pthread_mutex_unlock(&data->death);
+	pthread_mutex_lock(&data->print);
+	printf("%lld %d died\n", current_time()
+		- data->start_time, data->philos[i].id);
+	pthread_mutex_unlock(&data->print);
+}
 
 void	get_info(t_data *data)
 {
@@ -106,6 +117,14 @@ bool	parsing(int argc, char **argv, t_data *data)
 {
 	if (argc != 5 && argc != 6)
 		return (true);
+	if (ft_atoi(argv[1]) == 1)
+	{
+		printf("0 1 is thinking\n");
+		printf("0 1 has taken a fork\n");
+		usleep(ft_atoi(argv[2]) * 1000);
+		printf("%d 1 died\n", ft_atoi(argv[2]));
+		return (true);
+	}
 	if (init_data(argc, argv, data))
 		return (true);
 	if (init_philos(data))

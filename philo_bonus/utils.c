@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rukkyaa <rukkyaa@student.42.fr>            +#+  +:+       +#+        */
+/*   By: axlamber <axlamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 23:32:57 by rukkyaa           #+#    #+#             */
-/*   Updated: 2023/02/14 15:44:23 by rukkyaa          ###   ########.fr       */
+/*   Updated: 2023/02/15 11:48:04 by axlamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,19 @@ bool	is_dead(t_data *data)
 	ret = data->is_dead;
 	sem_post(data->check);
 	return (ret);
+}
+
+void	ft_death(t_philo *socrate)
+{
+	sem_wait(socrate->data->print);
+	if (!is_dead(socrate->data))
+		printf("%lld %d died\n",
+			current_time() - socrate->data->start_time, socrate->id);
+	sem_post(socrate->data->death);
+	sem_wait(socrate->data->check);
+	socrate->data->is_dead = true;
+	sem_post(socrate->data->check);
+	sem_post(socrate->data->meal);
+	usleep(10000);
+	sem_post(socrate->data->print);
 }

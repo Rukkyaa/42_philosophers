@@ -6,7 +6,7 @@
 /*   By: axlamber <axlamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 17:00:30 by axlamber          #+#    #+#             */
-/*   Updated: 2023/02/10 14:43:35 by axlamber         ###   ########.fr       */
+/*   Updated: 2023/02/15 12:51:00 by axlamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,25 +40,12 @@ void	take_fork(t_philo *boulesteix, bool flag)
 	}
 }
 
-void	eat(t_philo *voltaire)
-{
-	take_fork(voltaire, true);
-	print_msg(voltaire, "eat");
-	pthread_mutex_lock(&voltaire->data->death);
-	voltaire->last_eat = current_time();
-	pthread_mutex_lock(&voltaire->data->meal);
-	voltaire->total_meal++;
-	pthread_mutex_unlock(&voltaire->data->meal);
-	pthread_mutex_unlock(&voltaire->data->death);
-	ft_usleep(voltaire->data->time_to_eat, voltaire->data);
-	take_fork(voltaire, false);
-}
-
 void	*routine(void *philo)
 {
 	t_philo	*socrate;
 
 	socrate = (t_philo *)philo;
+	print_msg(socrate, "think");
 	if (!(socrate->id % 2))
 		ft_usleep(socrate->data->time_to_eat / 2, socrate->data);
 	while (!is_dead(socrate->data) && !get_full_ate(socrate->data))
@@ -67,6 +54,7 @@ void	*routine(void *philo)
 		print_msg(socrate, "sleep");
 		ft_usleep(socrate->data->time_to_sleep, socrate->data);
 		print_msg(socrate, "think");
+		usleep(100);
 	}
 	return (NULL);
 }
@@ -103,13 +91,7 @@ void	check_death(t_data *data)
 			if (current_time() - get_last_eat(&data->philos[i])
 				>= data->time_to_die)
 			{
-				pthread_mutex_lock(&data->death);
-				data->is_dead = 1;
-				pthread_mutex_unlock(&data->death);
-				pthread_mutex_lock(&data->print);
-				printf("%lld %d died\n", current_time()
-					- data->start_time, data->philos[i].id);
-				pthread_mutex_unlock(&data->print);
+				ft_death(data, i);
 				break ;
 			}
 			if (get_full_ate(data))

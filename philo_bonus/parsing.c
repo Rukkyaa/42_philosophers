@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rukkyaa <rukkyaa@student.42.fr>            +#+  +:+       +#+        */
+/*   By: axlamber <axlamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 23:25:49 by rukkyaa           #+#    #+#             */
-/*   Updated: 2023/02/11 15:51:34 by rukkyaa          ###   ########.fr       */
+/*   Updated: 2023/02/15 11:55:57 by axlamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,14 @@ bool	parsing(int argc, char **argv, t_data *data)
 {
 	if (argc != 5 && argc != 6)
 		return (true);
+	if (ft_atoi(argv[1]) == 1)
+	{
+		printf("0 1 is thinking\n");
+		printf("0 1 has taken a fork\n");
+		usleep(ft_atoi(argv[2]) * 1000);
+		printf("%d 1 died\n", ft_atoi(argv[2]));
+		return (true);
+	}
 	if (init_data(argc, argv, data))
 		return (true);
 	if (init_philos(data))

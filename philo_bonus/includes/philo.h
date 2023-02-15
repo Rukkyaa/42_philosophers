@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rukkyaa <rukkyaa@student.42.fr>            +#+  +:+       +#+        */
+/*   By: axlamber <axlamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 17:45:14 by axlamber          #+#    #+#             */
-/*   Updated: 2023/02/14 15:45:17 by rukkyaa          ###   ########.fr       */
+/*   Updated: 2023/02/15 11:48:12 by axlamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,6 @@ bool		init_philos(t_data *data);
 void		routine_philo(t_philo *notch);
 void		print_msg(t_philo *philo, char *str);
 bool		is_dead(t_data *data);
+void		ft_death(t_philo *socrate);
 
 #endif

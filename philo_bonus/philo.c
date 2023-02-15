@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rukkyaa <rukkyaa@student.42.fr>            +#+  +:+       +#+        */
+/*   By: axlamber <axlamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:04:21 by axlamber          #+#    #+#             */
-/*   Updated: 2023/02/14 15:47:11 by rukkyaa          ###   ########.fr       */
+/*   Updated: 2023/02/15 12:39:17 by axlamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,21 +63,13 @@ void	*meal_check(void *philo)
 		if (is_dead(socrate->data))
 			break ;
 		sem_wait(socrate->data->meal);
-		if (current_time() - socrate->last_eat >= socrate->data->time_to_die)
+		if (current_time() - socrate->last_eat > socrate->data->time_to_die)
 		{
-			sem_wait(socrate->data->print);
-			if (!is_dead(socrate->data))
-				printf("%lld %d died\n", current_time() - socrate->data->start_time, socrate->id);
-			sem_post(socrate->data->death);
-			sem_wait(socrate->data->check);
-			socrate->data->is_dead = true;
-			sem_post(socrate->data->check);
-			sem_post(socrate->data->meal);
-			usleep(10000);
-			sem_post(socrate->data->print);
+			ft_death(socrate);
 			break ;
 		}
-		if (socrate->total_meal >= socrate->data->nb_of_meal && socrate->data->nb_of_meal != -1)
+		if (socrate->total_meal >= socrate->data->nb_of_meal
+			&& socrate->data->nb_of_meal != -1)
 		{
 			sem_post(socrate->data->meal);
 			sem_post(socrate->data->death);
@@ -104,6 +96,7 @@ void	routine_philo(t_philo *notch)
 		print_msg(notch, "sleep");
 		ft_usleep(notch->data->time_to_sleep, notch->data);
 		print_msg(notch, "think");
+		usleep(100);
 	}
 	pthread_join(notch->death_thread, NULL);
 	pthread_join(notch->meal_thread, NULL);

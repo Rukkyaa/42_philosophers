@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rukkyaa <rukkyaa@student.42.fr>            +#+  +:+       +#+        */
+/*   By: axlamber <axlamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 16:33:13 by axlamber          #+#    #+#             */
-/*   Updated: 2023/02/14 15:49:23 by rukkyaa          ###   ########.fr       */
+/*   Updated: 2023/02/15 12:51:47 by axlamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,18 @@ bool	get_full_ate(t_data *data)
 	}
 	pthread_mutex_unlock(&data->meal);
 	return (count == data->nb_philo);
+}
+
+void	eat(t_philo *voltaire)
+{
+	take_fork(voltaire, true);
+	print_msg(voltaire, "eat");
+	pthread_mutex_lock(&voltaire->data->death);
+	voltaire->last_eat = current_time();
+	pthread_mutex_lock(&voltaire->data->meal);
+	voltaire->total_meal++;
+	pthread_mutex_unlock(&voltaire->data->meal);
+	pthread_mutex_unlock(&voltaire->data->death);
+	ft_usleep(voltaire->data->time_to_eat, voltaire->data);
+	take_fork(voltaire, false);
 }

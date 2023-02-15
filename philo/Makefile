@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rukkyaa <rukkyaa@student.42.fr>            +#+  +:+       +#+         #
+#    By: axlamber <axlamber@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/17 17:38:06 by axlamber          #+#    #+#              #
-#    Updated: 2023/01/21 11:59:52 by axlamber         ###   ########.fr        #
+#    Updated: 2023/02/15 12:11:57 by axlamber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS	= $(addsuffix .c, main parsing utils philo)
 OBJS	= $(SRCS:%.c=.build/%.o)
 
-NAME	= philosophers
+NAME	= philo
 CC		= cc
 RM		= rm -rf
 CFLAGS	= -Wall -Wextra -Werror -g
